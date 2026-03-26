@@ -1,0 +1,32 @@
+{
+  "name": "@copypastegenius/cli",
+  "version": "0.1.0",
+  "description": "CLI for CopyPasteGenius — run AI skills from your terminal",
+  "bin": {
+    "cpg": "./src/index.js"
+  },
+  "main": "./src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "chalk": "4.1.2",
+    "commander": "^11.1.0",
+    "enquirer": "^2.4.1",
+    "node-fetch": "2.7.0",
+    "ora": "5.4.1",
+    "conf": "^10.2.0",
+    "clipboardy": "2.3.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": ["ai", "prompts", "cli", "skills", "copypastegenius"],
+  "author": "CopyPasteGenius",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infinitecoder2/cpg-cli"
+  }
+}
