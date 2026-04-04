@@ -1,33 +1,33 @@
 // src/commands/packs.js
-// cpg packs            — list your packs
-// cpg install <slug>   — install a pack (fork all skills into account)
+// cpg playbooks            — list your playbooks
+// cpg install <slug>   — install a playbook (fork all skills into account)
 
 const chalk    = require('chalk');
 const ora      = require('ora');
 const api      = require('../api');
 const {
   divider, printError, printSuccess, printInfo,
-  formatPackRow, categoryIcon,
+  formatPlaybookRow, categoryIcon,
 } = require('../utils');
 
-// ── cpg packs ─────────────────────────────────────────────────
-async function listPacks() {
-  const spinner = ora('Fetching packs...').start();
+// ── cpg playbooks ─────────────────────────────────────────────────
+async function listPlaybooks() {
+  const spinner = ora('Fetching playbooks...').start();
   try {
-    const data = await api.listPacks();
+    const data = await api.listPlaybooks();
     spinner.stop();
 
-    if (!data.packs?.length) {
-      printInfo('No packs yet. Create one at copypastegenius.com/skills');
+    if (!data.playbooks?.length) {
+      printInfo('No playbooks yet. Create one at copypastegenius.com/skills');
       return;
     }
 
     console.log('');
-    console.log(chalk.bold(`  Your packs`) + chalk.dim(` (${data.packs.length})`));
+    console.log(chalk.bold(`  Your playbooks`) + chalk.dim(` (${data.playbooks.length})`));
     console.log('  ' + divider());
-    data.packs.forEach((pack, i) => console.log(formatPackRow(pack, i)));
+    data.playbooks.forEach((pack, i) => console.log(formatPlaybookRow(pack, i)));
     console.log('  ' + divider());
-    console.log(chalk.dim(`\n  Install a pack: ${chalk.cyan('cpg install <slug>')}`));
+    console.log(chalk.dim(`\n  Install a playbook: ${chalk.cyan('cpg install <slug>')}`));
     console.log('');
 
   } catch (err) {
@@ -38,12 +38,12 @@ async function listPacks() {
 }
 
 // ── cpg install <slug> ────────────────────────────────────────
-async function installPack(slug) {
-  // First peek at what's in the pack
+async function installPlaybook(slug) {
+  // First peek at what's in the playbook
   const fetchSpinner = ora(`Fetching pack "${slug}"...`).start();
   let pack;
   try {
-    const data = await api.getPack(slug);
+    const data = await api.getPlaybook(slug);
     pack = data.pack;
     fetchSpinner.stop();
   } catch (err) {
@@ -59,7 +59,7 @@ async function installPack(slug) {
   console.log('');
 
   if (!pack.skills?.length) {
-    printInfo('This pack has no skills to install.');
+    printInfo('This playbook has no skills to install.');
     return;
   }
 
@@ -77,7 +77,7 @@ async function installPack(slug) {
   // Install
   const installSpinner = ora(`Installing ${pack.skills.length} skills...`).start();
   try {
-    const result = await api.installPack(slug);
+    const result = await api.installPlaybook(slug);
     installSpinner.stop();
 
     printSuccess(`${result.count} skill${result.count !== 1 ? 's' : ''} installed from "${pack.title}"`);
@@ -99,4 +99,4 @@ async function installPack(slug) {
   }
 }
 
-module.exports = { listPacks, installPack };
+module.exports = { listPlaybooks, installPlaybook };

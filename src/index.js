@@ -75,19 +75,19 @@ program
 
 // ── packs commands ────────────────────────────────────────────
 program
-  .command('packs')
-  .description('List your skill packs')
+  .command('playbooks')
+  .description('List your playbooks')
   .action(async () => {
-    const { listPacks } = require('./commands/packs');
-    await listPacks();
+    const { listPlaybooks } = require('./commands/packs');
+    await listPlaybooks();
   });
 
 program
   .command('install <slug>')
-  .description('Install a skill pack — forks all skills into your account')
+  .description('Install a playbook — forks all skills into your account')
   .action(async (slug) => {
-    const { installPack } = require('./commands/packs');
-    await installPack(slug);
+    const { installPlaybook } = require('./commands/packs');
+    await installPlaybook(slug);
   });
 
 // ── Shortcut: cpg whoami ──────────────────────────────────────
@@ -107,8 +107,8 @@ if (process.argv.length <= 2) {
   console.log(`  ${chalk.cyan('cpg auth login')}          Log in with your API key`);
   console.log(`  ${chalk.cyan('cpg skills')}              List your skills`);
   console.log(`  ${chalk.cyan('cpg run <slug>')}          Run a skill`);
-  console.log(`  ${chalk.cyan('cpg packs')}               List your packs`);
-  console.log(`  ${chalk.cyan('cpg install <slug>')}      Install a skill pack`);
+  console.log(`  ${chalk.cyan('cpg playbooks')}               List your playbooks`);
+  console.log(`  ${chalk.cyan('cpg install <slug>')}      Install a playbook`);
   console.log('');
   console.log(chalk.dim(`  Get your API key at: https://www.copypastegenius.com/settings`));
   console.log('');
